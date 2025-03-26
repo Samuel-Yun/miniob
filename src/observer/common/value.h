@@ -95,8 +95,8 @@ public:
     // 在 Value 的 public 部分添加
   void set_pointer(void *ptr) {
     reset();
-    // 这里可根据需要设置为 AttrType::DATE，也可以在调用处确保已经设置了类型
-    attr_type_ = AttrType::DATE;
+    // 这里可根据需要设置为 AttrType::DATES，也可以在调用处确保已经设置了类型
+    attr_type_ = AttrType::DATES;
     value_.pointer_value_ = reinterpret_cast<char*>(ptr);
   }
 

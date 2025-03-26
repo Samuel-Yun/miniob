@@ -8,13 +8,13 @@
 #include <cstdlib>
 
 // 构造函数：指定类型为 DATE（需要在 AttrType 中定义）
-DateType::DateType() : DataType(AttrType::DATE) {}
+DateType::DateType() : DataType(AttrType::DATES) {}
 
 DateType::~DateType() {}
 
 // 比较两个日期值：返回负值、0或正值
 int DateType::compare(const Value &left, const Value &right) const {
-  ASSERT(left.attr_type() == AttrType::DATE && right.attr_type() == AttrType::DATE, "invalid type");
+  ASSERT(left.attr_type() == AttrType::DATES && right.attr_type() == AttrType::DATES, "invalid type");
   const Date *left_date = reinterpret_cast<const Date*>(left.value_.pointer_value_);
   const Date *right_date = reinterpret_cast<const Date*>(right.value_.pointer_value_);
   if (left_date->value < right_date->value) {
@@ -59,7 +59,7 @@ RC DateType::set_value_from_str(Value &val, const std::string &data) const {
 
 // 将内部日期值转换为字符串 "YYYY-MM-DD"
 RC DateType::to_string(const Value &val, std::string &result) const {
-  ASSERT(val.attr_type() == AttrType::DATE, "invalid type");
+  ASSERT(val.attr_type() == AttrType::DATES, "invalid type");
   const Date *date_ptr = reinterpret_cast<const Date*>(val.value_.pointer_value_);
   int date_value = static_cast<int>(date_ptr->value);
   int year  = date_value / 10000;
@@ -77,7 +77,7 @@ RC DateType::cast_to(const Value &val, AttrType type, Value &result) const {
 }
 
 int DateType::cast_cost(AttrType type) {
-  if (type == AttrType::DATE) {
+  if (type == AttrType::DATES) {
     return 0;
   }
   return INT32_MAX;
