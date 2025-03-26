@@ -35,6 +35,7 @@ public:
   friend class BooleanType;
   friend class CharType;
   friend class VectorType;
+  friend class DateType;
 
   Value() = default;
 
@@ -90,6 +91,14 @@ public:
   void set_data(const char *data, int length) { this->set_data(const_cast<char *>(data), length); }
   void set_value(const Value &value);
   void set_boolean(bool val);
+
+    // 在 Value 的 public 部分添加
+  void set_pointer(void *ptr) {
+    reset();
+    // 这里可根据需要设置为 AttrType::DATE，也可以在调用处确保已经设置了类型
+    attr_type_ = AttrType::DATE;
+    value_.pointer_value_ = reinterpret_cast<char*>(ptr);
+  }
 
   string to_string() const;
 
